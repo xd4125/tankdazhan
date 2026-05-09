@@ -29,10 +29,11 @@ canvas { display: block; }
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    pointer-events: none;
+    cursor: pointer;
     color: #fff;
+    z-index: 10;
 }
-#overlay.hidden { display: none; }
+#overlay.hidden { display: none !important; }
 #overlay h1 {
     font-size: 42px;
     color: #ffd700;
@@ -143,7 +144,9 @@ const overlayContent = document.getElementById('overlayContent');
 // ============================================================
 let audioCtx = null;
 function initAudio() {
-    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    try {
+        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    } catch(e) {}
 }
 function playShoot() {
     if (!audioCtx) return;
